@@ -24,3 +24,6 @@ Apesar de serem poucas funcionalidades, você vai precisar relembrar conceitos c
 - Listas e chaves no ReactJS
 - Propriedades
 - Componentização
+
+  # Layout da aplicação
+  https://www.figma.com/file/0n0zDN7zbzhRbaEO74Xesx/ToDo-List/duplicate
