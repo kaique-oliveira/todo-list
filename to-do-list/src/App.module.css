@@ -1,0 +1,42 @@
+.wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.task{
+    width: 46rem;
+    height: 17.938rem;
+
+    margin-top: 4rem;
+}
+
+.isListTask{
+    width: 46rem;
+    height: 15.25rem;
+
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    border-top: 1px solid var(--gray-400);
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.75rem;
+}
+
+.noListTask{
+    width: 46rem;
+    height: 15.25rem;
+
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    border-top: 1px solid var(--gray-400);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

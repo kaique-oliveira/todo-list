@@ -1,34 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { Header } from './components/Header';
+import { InfoToDo } from './components/InfoToDo';
+import { FormTask, PropTask } from './components/FormTask';
+import { ToDoEmpty } from './components/ToDoEmpty';
+import { Task } from './components/Task';
+
+import styles from './App.module.css'
+import './global.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [listTasks, setListTasks] = useState<PropTask[]>([]);
+
+  function CreateNewTask(description: string){
+    setListTasks([...listTasks, { description }]);
+  }
+
+  function DeleteTask(description : string){
+    const TasksWithoutDeleteOne = listTasks.filter(task => {
+      return task.description != description;
+    });
+
+    setListTasks(TasksWithoutDeleteOne);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <Header />
+      <FormTask onCreateNewTask={CreateNewTask}/>
+
+      <div className={styles.wrapper}>
+        <main className={styles.task}>
+          <InfoToDo
+            listTasks={listTasks}
+          />
+          <div className={listTasks.length ? styles.isListTask : styles.noListTask}>
+           {listTasks.length ?
+            listTasks.map(task => (
+              <Task 
+                key={task.description} 
+                description={task.description}
+                onDeleteTask={DeleteTask}
+              />
+            )) : <ToDoEmpty/> }  
+          </div>
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
