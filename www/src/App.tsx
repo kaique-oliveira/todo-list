@@ -12,7 +12,7 @@ function App() {
 
   const [listTasks, setListTasks] = useState<Itask[]>([]);
 
-  function CreateNewTask(descriptionTask: string){
+  function createNewTask(descriptionTask: string){
     const newTask : Itask = {
       id: listTasks.length + 1,
       description: descriptionTask,
@@ -24,7 +24,7 @@ function App() {
     setListTasks([...listTasks, newTask]);
   }
 
-  function DeleteTask(taskId : number){
+  function deleteTask(taskId : number){
     const TasksWithoutDeleteOne = listTasks.filter(task => {
       return task.id != taskId;
   });
@@ -46,7 +46,7 @@ function App() {
   return (
     <div>
       <Header />
-      <FormTask onCreateNewTask={CreateNewTask}/>
+      <FormTask onCreateNewTask={createNewTask}/>
 
       <div className={styles.wrapper}>
         <main className={styles.task}>
@@ -63,7 +63,7 @@ function App() {
                 id={task.id}
                 description={task.description}
                 isFinished={task.isFinished}
-                onDeleteTask={DeleteTask}
+                onDeleteTask={deleteTask}
                 onChangeStatus={changeStatus}
               />
             )) : <ToDoEmpty/> }  

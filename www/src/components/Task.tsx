@@ -11,17 +11,13 @@ export interface Itask{
 }
 
 export function Task( propTask: Itask){
-    //const [isChecked, setIsChecked] = useState(false);
 
     function handleDeleteTask(){
         propTask.onDeleteTask(propTask.id);
     }
 
     function onHandleIsOrNoFinished(){
-        // const check = !isChecked;
         propTask.onChangeStatus(propTask);
-        // propTask.isFinished = propTask.isFinished;
-       // setIsChecked(!isChecked);
     }
 
   return (
