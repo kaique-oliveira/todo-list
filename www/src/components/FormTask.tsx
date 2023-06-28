@@ -4,11 +4,7 @@ import { PlusCircle } from "@phosphor-icons/react";
 import styles from './FormTask.module.css';
 
 export interface PropCreateTask{  
-    onCreateNewTask: (description: string) => void;
-}
-
-export interface PropTask{
-    description: string;
+    onCreateNewTask: (string: string) => void;
 }
 
 export function FormTask({ onCreateNewTask } : PropCreateTask) {
@@ -24,13 +20,11 @@ export function FormTask({ onCreateNewTask } : PropCreateTask) {
     function handleNewCreateChange(event : ChangeEvent<HTMLInputElement>){
         event.target.setCustomValidity('');
         setTask(event.target.value);
-
     }
 
     function handleNewCommentInvalid(event: InvalidEvent<HTMLInputElement>){
         event.target.setCustomValidity('Este campo é obrigatório!');
-      }
-    
+    }
 
     return (
         <form className={styles.formTask} onSubmit={handleCreateNewTask}>

@@ -1,19 +1,27 @@
 import { Check, Trash } from '@phosphor-icons/react';
 
 import styles from './Task.module.css';
-import { useState } from 'react';
-import { PropTask } from './FormTask';
 
-
-interface PropCardTask extends PropTask{
-    onDeleteTask: (description: string) => void;
+export interface Itask{
+    id: number;
+    description: string;
+    isFinished: boolean;
+    onDeleteTask: (idTaks: number) => void;
+    onChangeStatus: (task: Itask) => void;
 }
 
-export function Task({ description, onDeleteTask }: PropCardTask){
-    const [isChecked, setIsChecked] = useState(false);
+export function Task( propTask: Itask){
+    //const [isChecked, setIsChecked] = useState(false);
 
     function handleDeleteTask(){
-        onDeleteTask(description)
+        propTask.onDeleteTask(propTask.id);
+    }
+
+    function onHandleIsOrNoFinished(){
+        // const check = !isChecked;
+        propTask.onChangeStatus(propTask);
+        // propTask.isFinished = propTask.isFinished;
+       // setIsChecked(!isChecked);
     }
 
   return (
@@ -21,15 +29,15 @@ export function Task({ description, onDeleteTask }: PropCardTask){
         <div className={styles.TaskWarapper}>
             <div className={styles.containerCheck}>
                 <button 
-                    className={isChecked ? styles.buttonIsChecked :styles.buttonNoChecked}
-                    onClick={() => setIsChecked(!isChecked)}
+                    className={ propTask.isFinished ? styles.buttonIsChecked :styles.buttonNoChecked}
+                    onClick={ onHandleIsOrNoFinished }
                 >
-                    {isChecked && <Check size={15}/>}
+                    { propTask.isFinished && <Check size={15}/>}
                 </button>
             </div>
             <div className={styles.containerContent}>
-                <p className={isChecked ? styles.contentTextIsChecked : styles.contentTextNoChecked }>
-                    {description}
+                <p className={ propTask.isFinished ? styles.contentTextIsChecked : styles.contentTextNoChecked }>
+                    {propTask.description}
                 </p>
             </div>
             <div className={styles.containerTrash}>

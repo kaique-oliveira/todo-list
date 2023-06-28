@@ -1,23 +1,23 @@
-import { PropTask } from './FormTask';
 import styles from './InfoToDo.module.css';
 
-interface PropInfoToDo{
-    listTasks: PropTask[];
+interface PropsHeaderInfo{
+  numberTasksCreated: number;
+  numberTasksfinished: number;
 }
 
-export function InfoToDo({ listTasks } : PropInfoToDo){
+export function InfoToDo(info : PropsHeaderInfo){
   return (
     <header className={styles.containerInfoTasks}>
         <div className={styles.tasksCreated}>
             <p>Tarefas criadas</p>
             <div className={styles.counter}>
-                <span>{listTasks.length}</span>
+                <span>{info.numberTasksCreated}</span>
             </div>
         </div>
         <div className={styles.tasksCompleted}>
             <p>Concluídas</p>
             <div className={styles.counter}>
-                <span>0</span>
+                <span>{info.numberTasksfinished}</span>
             </div>
         </div>
     </header>

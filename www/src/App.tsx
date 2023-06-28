@@ -1,27 +1,46 @@
 import { useState } from 'react';
 import { Header } from './components/Header';
 import { InfoToDo } from './components/InfoToDo';
-import { FormTask, PropTask } from './components/FormTask';
+import { FormTask } from './components/FormTask';
 import { ToDoEmpty } from './components/ToDoEmpty';
-import { Task } from './components/Task';
+import { Itask, Task } from './components/Task';
 
 import styles from './App.module.css'
 import './global.css';
 
 function App() {
 
-  const [listTasks, setListTasks] = useState<PropTask[]>([]);
+  const [listTasks, setListTasks] = useState<Itask[]>([]);
 
-  function CreateNewTask(description: string){
-    setListTasks([...listTasks, { description }]);
+  function CreateNewTask(descriptionTask: string){
+    const newTask : Itask = {
+      id: listTasks.length + 1,
+      description: descriptionTask,
+      isFinished: false,
+      onDeleteTask: () => {},
+      onChangeStatus: () => {}
+    } 
+
+    setListTasks([...listTasks, newTask]);
   }
 
-  function DeleteTask(description : string){
+  function DeleteTask(taskId : number){
     const TasksWithoutDeleteOne = listTasks.filter(task => {
-      return task.description != description;
-    });
+      return task.id != taskId;
+  });
 
     setListTasks(TasksWithoutDeleteOne);
+  }
+
+  function changeStatus(changeTask: Itask){
+    const newListTasks = listTasks.filter(task => {
+      if(task.id == changeTask.id){
+        task.isFinished = !changeTask.isFinished;
+      }
+      return task;
+    });
+
+    setListTasks(newListTasks);
   }
 
   return (
@@ -31,16 +50,21 @@ function App() {
 
       <div className={styles.wrapper}>
         <main className={styles.task}>
-          <InfoToDo
-            listTasks={listTasks}
+          <InfoToDo 
+            numberTasksCreated={listTasks.length}
+            numberTasksfinished={listTasks.filter(task => task.isFinished == true).length}
           />
+
           <div className={listTasks.length ? styles.isListTask : styles.noListTask}>
            {listTasks.length ?
             listTasks.map(task => (
               <Task 
-                key={task.description} 
+                key={task.id} 
+                id={task.id}
                 description={task.description}
+                isFinished={task.isFinished}
                 onDeleteTask={DeleteTask}
+                onChangeStatus={changeStatus}
               />
             )) : <ToDoEmpty/> }  
           </div>
